@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
+            fx:controller="controller.DashboardController"
+            fitToWidth="true" styleClass="scroll-pane" hbarPolicy="NEVER">
+    <VBox spacing="20.0" styleClass="page">
+        <padding>
+            <Insets top="28.0" right="28.0" bottom="28.0" left="28.0"/>
+        </padding>
+        <Label text="Dashboard" styleClass="section-title"/>
+        <Label text="Visão geral das suas finanças" styleClass="section-subtitle"/>
+
+        <HBox spacing="16.0">
+            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
+                <Label text="Saldo atual" styleClass="card-label"/>
+                <Label fx:id="balanceLabel" text="R$ 0,00" styleClass="card-value"/>
+            </VBox>
+            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
+                <Label text="Receitas do mês" styleClass="card-label"/>
+                <Label fx:id="monthIncomeLabel" text="R$ 0,00" styleClass="card-value positive"/>
+            </VBox>
+            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
+                <Label text="Despesas do mês" styleClass="card-label"/>
+                <Label fx:id="monthExpenseLabel" text="R$ 0,00" styleClass="card-value negative"/>
+            </VBox>
+            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
+                <Label text="Economia do mês" styleClass="card-label"/>
+                <Label fx:id="monthSavingsLabel" text="R$ 0,00" styleClass="card-value"/>
+            </VBox>
+        </HBox>
+
+        <GridPane hgap="16.0" vgap="16.0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="55.0" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="45.0" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <VBox spacing="8.0" styleClass="card" GridPane.columnIndex="0">
+                <Label text="Comparativo mensal" styleClass="section-title"/>
+                <BarChart fx:id="monthlyChart" legendVisible="true" prefHeight="280.0" animated="false">
+                    <xAxis>
+                        <CategoryAxis label="Mês"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Valor (R$)"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+            <VBox spacing="8.0" styleClass="card" GridPane.columnIndex="1">
+                <Label text="Despesas por categoria" styleClass="section-title"/>
+                <PieChart fx:id="categoryChart" legendVisible="true" prefHeight="280.0" animated="false"
+                          labelsVisible="true"/>
+            </VBox>
+        </GridPane>
+
+        <VBox spacing="12.0" styleClass="card" VBox.vgrow="ALWAYS">
+            <Label text="Movimentações recentes" styleClass="section-title"/>
+            <TableView fx:id="recentTable" prefHeight="260.0">
+                <columns>
+                    <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="260.0"/>
+                    <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="100.0"/>
+                    <TableColumn fx:id="amountColumn" text="Valor" prefWidth="120.0"/>
+                    <TableColumn fx:id="dateColumn" text="Data" prefWidth="110.0"/>
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="110.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>
