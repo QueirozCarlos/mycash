@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
+            fx:controller="controller.CategoriesController"
+            fitToWidth="true" styleClass="scroll-pane" hbarPolicy="NEVER">
+    <VBox spacing="20.0" styleClass="page">
+        <padding>
+            <Insets top="28.0" right="28.0" bottom="28.0" left="28.0"/>
+        </padding>
+        <Label text="Categorias" styleClass="section-title"/>
+        <Label text="Organize receitas e despesas por categoria" styleClass="section-subtitle"/>
+
+        <HBox spacing="16.0" VBox.vgrow="ALWAYS">
+            <VBox spacing="12.0" styleClass="card" HBox.hgrow="ALWAYS">
+                <HBox spacing="10.0">
+                    <TextField fx:id="searchField" promptText="Pesquisar categoria..." HBox.hgrow="ALWAYS"
+                               onAction="#onSearch"/>
+                    <Button text="Pesquisar" onAction="#onSearch"/>
+                </HBox>
+                <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="420.0">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0"/>
+                        <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200.0"/>
+                        <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="140.0"/>
+                        <TableColumn fx:id="colorColumn" text="Cor" prefWidth="110.0"/>
+                        <TableColumn fx:id="activeColumn" text="Ativa" prefWidth="80.0"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="12.0" styleClass="card" prefWidth="320.0">
+                <Label text="Cadastro" styleClass="section-title"/>
+                <Label text="Nome" styleClass="form-label"/>
+                <TextField fx:id="nameField" promptText="Nome da categoria"/>
+                <Label text="Tipo" styleClass="form-label"/>
+                <ComboBox fx:id="typeCombo" promptText="Tipo" maxWidth="Infinity"/>
+                <Label text="Cor" styleClass="form-label"/>
+                <ColorPicker fx:id="colorPicker" maxWidth="Infinity"/>
+                <CheckBox fx:id="activeCheck" text="Categoria ativa"/>
+                <HBox spacing="10.0">
+                    <Button fx:id="saveButton" text="Salvar" onAction="#onSave" HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"/>
+                    <Button text="Limpar" styleClass="ghost-button" onAction="#onClear"/>
+                </HBox>
+                <Button text="Excluir selecionada" styleClass="danger-button" onAction="#onDelete"
+                        maxWidth="Infinity"/>
+                <Label fx:id="statusLabel" styleClass="body-text" wrapText="true"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>
