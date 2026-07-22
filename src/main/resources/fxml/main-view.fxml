@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
+            fx:controller="controller.MainController" styleClass="root">
+    <left>
+        <VBox fx:id="sidebar" spacing="8.0" styleClass="sidebar" prefWidth="240.0">
+            <padding>
+                <Insets top="28.0" right="16.0" bottom="28.0" left="16.0"/>
+            </padding>
+
+            <Button fx:id="menuButton"
+            text="☰"
+            onAction="#toggleSidebar"
+            styleClass="icon-button"/>
+
+           <Label fx:id="titleLabel"
+           text="Financeiro"
+           styleClass="app-title"/>
+
+            <Label text="Gestão financeira pessoal" styleClass="app-subtitle" wrapText="true"/>
+            <Separator>
+                <VBox.margin>
+                    <Insets top="12.0" bottom="12.0"/>
+                </VBox.margin>
+            </Separator>
+            <Button fx:id="dashboardNav" text="Dashboard" styleClass="nav-button" onAction="#showDashboard"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="categoriesNav" text="Categorias" styleClass="nav-button" onAction="#showCategories"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="incomeNav" text="Receitas" styleClass="nav-button" onAction="#showIncome"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="expenseNav" text="Despesas" styleClass="nav-button" onAction="#showExpense"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="recurringNav" text="Recorrentes" styleClass="nav-button" onAction="#showRecurring"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="cardsNav" text="Cartões" styleClass="nav-button" onAction="#showCards"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="goalsNav" text="Metas" styleClass="nav-button" onAction="#showGoals"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="reportsNav" text="Relatórios" styleClass="nav-button" onAction="#showReports"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+            <Button fx:id="backupNav" text="Backup" styleClass="nav-button" onAction="#showBackup"
+                    maxWidth="Infinity" mnemonicParsing="false"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane styleClass="content-host" maxWidth="Infinity" maxHeight="Infinity">
+            <StackPane fx:id="contentHost" maxWidth="Infinity" maxHeight="Infinity"/>
+            <HBox alignment="TOP_RIGHT" styleClass="settings-overlay" mouseTransparent="false"
+                  maxWidth="Infinity" maxHeight="Infinity" pickOnBounds="false">
+                <Button fx:id="settingsButton" text="⚙" styleClass="icon-button"
+                        onAction="#showSettings" mnemonicParsing="false"/>
+            </HBox>
+        </StackPane>
+    </center>
+</BorderPane>
