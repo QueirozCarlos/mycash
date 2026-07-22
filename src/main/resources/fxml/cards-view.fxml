@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
+            fx:controller="controller.CardsController"
+            fitToWidth="true" styleClass="scroll-pane" hbarPolicy="NEVER">
+    <VBox spacing="20.0" styleClass="page">
+        <padding>
+            <Insets top="28.0" right="28.0" bottom="28.0" left="28.0"/>
+        </padding>
+        <Label text="Cartões de crédito" styleClass="section-title"/>
+        <Label text="Limites, faturas e parcelamentos" styleClass="section-subtitle"/>
+
+        <HBox spacing="16.0">
+            <VBox spacing="12.0" styleClass="card" HBox.hgrow="ALWAYS">
+                <Label text="Cartões" styleClass="section-title"/>
+                <TableView fx:id="cardsTable" prefHeight="240.0">
+                    <columns>
+                        <TableColumn fx:id="cardNameColumn" text="Nome" prefWidth="140.0"/>
+                        <TableColumn fx:id="limitColumn" text="Limite" prefWidth="110.0"/>
+                        <TableColumn fx:id="usedColumn" text="Usado" prefWidth="110.0"/>
+                        <TableColumn fx:id="availableColumn" text="Disponível" prefWidth="110.0"/>
+                        <TableColumn fx:id="closingDayColumn" text="Fecha" prefWidth="70.0"/>
+                        <TableColumn fx:id="dueDayColumn" text="Vence" prefWidth="70.0"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="card" prefWidth="300.0">
+                <Label text="Cadastro do cartão" styleClass="section-title"/>
+                <Label text="Nome" styleClass="form-label"/>
+                <TextField fx:id="cardNameField" promptText="Nome do cartão"/>
+                <Label text="Limite" styleClass="form-label"/>
+                <TextField fx:id="limitField" promptText="0,00"/>
+                <Label text="Dia de fechamento" styleClass="form-label"/>
+                <TextField fx:id="closingDayField" promptText="1-31"/>
+                <Label text="Dia de vencimento" styleClass="form-label"/>
+                <TextField fx:id="dueDayField" promptText="1-31"/>
+                <CheckBox fx:id="cardActiveCheck" text="Cartão ativo"/>
+                <HBox spacing="10.0">
+                    <Button fx:id="saveCardButton" text="Salvar" onAction="#onSaveCard" HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"/>
+                    <Button text="Limpar" styleClass="ghost-button" onAction="#onClearCard"/>
+                </HBox>
+                <Button text="Excluir cartão" styleClass="danger-button" onAction="#onDeleteCard"
+                        maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="16.0">
+            <VBox spacing="12.0" styleClass="card" HBox.hgrow="ALWAYS">
+                <Label text="Parcelamentos" styleClass="section-title"/>
+                <TableView fx:id="plansTable" prefHeight="240.0">
+                    <columns>
+                        <TableColumn fx:id="planDescriptionColumn" text="Descrição" prefWidth="160.0"/>
+                        <TableColumn fx:id="planCardColumn" text="Cartão" prefWidth="110.0"/>
+                        <TableColumn fx:id="planTotalColumn" text="Total" prefWidth="100.0"/>
+                        <TableColumn fx:id="planPaidColumn" text="Pagas" prefWidth="70.0"/>
+                        <TableColumn fx:id="planPendingColumn" text="Pendentes" prefWidth="90.0"/>
+                        <TableColumn fx:id="planRemainingColumn" text="Restante" prefWidth="110.0"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10.0">
+                    <Button text="Marcar próxima como paga" onAction="#onMarkNextPaid"/>
+                    <Button text="Excluir plano" styleClass="danger-button" onAction="#onDeletePlan"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="card" prefWidth="300.0">
+                <Label text="Novo parcelamento" styleClass="section-title"/>
+                <Label text="Cartão" styleClass="form-label"/>
+                <ComboBox fx:id="planCardCombo" maxWidth="Infinity"/>
+                <Label text="Descrição" styleClass="form-label"/>
+                <TextField fx:id="planDescriptionField" promptText="Descrição"/>
+                <Label text="Valor total" styleClass="form-label"/>
+                <TextField fx:id="planTotalField" promptText="0,00"/>
+                <Label text="Parcelas" styleClass="form-label"/>
+                <TextField fx:id="planCountField" promptText="Ex: 12"/>
+                <Label text="Data de início" styleClass="form-label"/>
+                <DatePicker fx:id="planStartPicker" maxWidth="Infinity"/>
+                <Label text="Categoria" styleClass="form-label"/>
+                <ComboBox fx:id="planCategoryCombo" maxWidth="Infinity"/>
+                <Button text="Criar parcelamento" onAction="#onCreatePlan" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>
