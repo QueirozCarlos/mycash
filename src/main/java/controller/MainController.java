@@ -5,9 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import model.MovementType;
+import util.IconUtils;
 import util.UiDialogs;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -58,6 +61,13 @@ public class MainController {
 
     private boolean expanded = true;
 
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label subtitleLabel;
+
+
     private MovementType currentMovementType = MovementType.RECEITA;
     private List<Button> navButtons;
 
@@ -70,29 +80,29 @@ public class MainController {
             "Cartões",
             "Metas",
             "Relatórios",
-            "Backup"
+            "Backup",
+            "Configurações"
     );
 
-    private final List<String> icons = List.of(
-            "🏠",
-            "📂",
-            "💰",
-            "💸",
-            "🔁",
-            "💳",
-            "🎯",
-            "📊",
-            "☁"
-    );
 
     @FXML
     private void initialize() {
         navButtons = List.of(
                 dashboardNav, categoriesNav, incomeNav, expenseNav,
-                recurringNav, cardsNav, goalsNav, reportsNav, backupNav);
+                recurringNav, cardsNav, goalsNav, reportsNav, backupNav, settingsButton);
         showDashboard();
-    }
-
+    
+        dashboardNav.setGraphic(IconUtils.load("home.png"));
+        categoriesNav.setGraphic(IconUtils.load("category.png"));
+        incomeNav.setGraphic(IconUtils.load("income.png"));
+        expenseNav.setGraphic(IconUtils.load("expense.png"));
+        recurringNav.setGraphic(IconUtils.load("recurring.png"));
+        cardsNav.setGraphic(IconUtils.load("card.png"));
+        goalsNav.setGraphic(IconUtils.load("goal.png"));
+        reportsNav.setGraphic(IconUtils.load("flag.png"));
+        backupNav.setGraphic(IconUtils.load("backup.png"));
+        settingsButton.setGraphic(IconUtils.load("settings.png"));
+        }
     @FXML
     private void showDashboard() {
         show("dashboard-view.fxml", dashboardNav, null);
@@ -188,15 +198,14 @@ public class MainController {
     private void toggleSidebar() {
 
         animateSidebar(expanded ? 70 : 240);
+
         for (int i = 0; i < navButtons.size(); i++) {
-
-            if (expanded) {
-                navButtons.get(i).setText(icons.get(i));
-            } else {
-                navButtons.get(i).setText(icons.get(i) + " " + texts.get(i));
-            }
-
+            navButtons.get(i).setText(expanded ? "" : texts.get(i));
         }
         expanded = !expanded;
+
+        titleLabel.setText(expanded ? "Financeiro" : "");
+        subtitleLabel.setText(expanded ? "Gestão financeira" : "");
+
     }
 }
