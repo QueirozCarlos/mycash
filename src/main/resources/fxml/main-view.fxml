@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
             fx:controller="controller.MainController" styleClass="root">
@@ -23,12 +24,16 @@
             onAction="#toggleSidebar"
             styleClass="icon-button"/>
 
-           <Label fx:id="titleLabel"
-           text="Financeiro"
-           styleClass="app-title"/>
+            <Label fx:id="titleLabel"
+            text="Financeiro"
+            styleClass="app-title"/>
 
-            <Label text="Gestão financeira pessoal" styleClass="app-subtitle" wrapText="true"/>
-            <Separator>
+            <Label fx:id="subtitleLabel"
+            text="Gestão financeira"
+            styleClass="app-subtitle"
+            wrapText="true"/>
+
+            <Separator> 
                 <VBox.margin>
                     <Insets top="12.0" bottom="12.0"/>
                 </VBox.margin>
@@ -51,16 +56,21 @@
                     maxWidth="Infinity" mnemonicParsing="false"/>
             <Button fx:id="backupNav" text="Backup" styleClass="nav-button" onAction="#showBackup"
                     maxWidth="Infinity" mnemonicParsing="false"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button fx:id="settingsButton" text="Configurações" styleClass="nav-button" onAction="#showSettings"
+                maxWidth="Infinity"/>
         </VBox>
     </left>
     <center>
         <StackPane styleClass="content-host" maxWidth="Infinity" maxHeight="Infinity">
             <StackPane fx:id="contentHost" maxWidth="Infinity" maxHeight="Infinity"/>
-            <HBox alignment="TOP_RIGHT" styleClass="settings-overlay" mouseTransparent="false"
+            <!-- <HBox alignment="TOP_RIGHT" styleClass="settings-overlay" mouseTransparent="false"
                   maxWidth="Infinity" maxHeight="Infinity" pickOnBounds="false">
                 <Button fx:id="settingsButton" text="⚙" styleClass="icon-button"
                         onAction="#showSettings" mnemonicParsing="false"/>
-            </HBox>
+            </HBox> -->
         </StackPane>
     </center>
 </BorderPane>
