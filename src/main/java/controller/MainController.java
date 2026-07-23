@@ -81,7 +81,7 @@ public class MainController {
             "Metas",
             "Relatórios",
             "Backup",
-            "SettingsButton"
+            "Configurações"
     );
 
 
