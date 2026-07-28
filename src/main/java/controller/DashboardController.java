@@ -13,12 +13,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import model.MovementEntity;
 import model.MovementStatus;
 import model.MovementType;
 import service.DashboardService;
 import util.ColorUtils;
 import util.Formatters;
+import util.IconUtils;
 import util.UiDialogs;
 
 import java.math.BigDecimal;
@@ -64,15 +66,39 @@ public class DashboardController {
     @FXML
     private PieChart categoryChart;
 
+    @FXML
+    private HBox headerSaldo;
+
+    @FXML
+    private HBox headerIncome;
+
+    @FXML
+    private HBox headerExpense;
+
+    @FXML
+    private HBox headerSaving;
+
     private final DashboardService dashboardService = new DashboardService();
 
     @FXML
     private void initialize() {
+
+        recentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        // Ícones dos cards
+        headerSaldo.getChildren().add(0, IconUtils.load("wallet.png"));
+        headerIncome.getChildren().add(0, IconUtils.load("trending-up.png"));
+        headerExpense.getChildren().add(0, IconUtils.load("trending-down.png"));
+        headerSaving.getChildren().add(0, IconUtils.load("piggy-bank.png"));
+
+
+        // Configuração da tabela
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("movementDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("movementDate"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
 
         amountColumn.setCellFactory(column -> new TableCell<>() {
             @Override

@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
 <ScrollPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
             fx:controller="controller.DashboardController"
             fitToWidth="true" styleClass="scroll-pane" hbarPolicy="NEVER">
@@ -25,23 +26,97 @@
         <Label text="Dashboard" styleClass="section-title"/>
         <Label text="Visão geral das suas finanças" styleClass="section-subtitle"/>
 
-        <HBox spacing="16.0">
-            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
-                <Label text="Saldo atual" styleClass="card-label"/>
-                <Label fx:id="balanceLabel" text="R$ 0,00" styleClass="card-value"/>
+        <HBox spacing="16.0" fillHeight="true" styleClass="metrics-container">
+
+            <!-- Saldo -->
+            <VBox styleClass="card"
+                  spacing="10"
+                  HBox.hgrow="ALWAYS"
+                  maxWidth="Infinity">
+
+                <HBox fx:id="headerSaldo"
+                      alignment="CENTER_LEFT"
+                      spacing="8">
+
+                    <Label text="Saldo atual"
+                           styleClass="card-label"/>
+
+                </HBox>
+
+<!--                <Region VBox.vgrow="ALWAYS"/>-->
+
+                <Label fx:id="balanceLabel"
+                       text="R$ 0,00"
+                       styleClass="card-value"/>
+
             </VBox>
-            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
-                <Label text="Receitas do mês" styleClass="card-label"/>
-                <Label fx:id="monthIncomeLabel" text="R$ 0,00" styleClass="card-value positive"/>
+
+            <!-- Receitas -->
+            <VBox styleClass="card"
+                  HBox.hgrow="ALWAYS"
+                  maxWidth="Infinity">
+
+                <HBox fx:id="headerIncome"
+                      alignment="CENTER_LEFT"
+                      spacing="8">
+
+                    <Label text="Receitas do mês"
+                           styleClass="card-label"/>
+
+                </HBox>
+
+<!--                <Region VBox.vgrow="ALWAYS"/>-->
+
+                <Label fx:id="monthIncomeLabel"
+                       text="R$ 0,00"
+                       styleClass="card-value"/>
+
             </VBox>
-            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
-                <Label text="Despesas do mês" styleClass="card-label"/>
-                <Label fx:id="monthExpenseLabel" text="R$ 0,00" styleClass="card-value negative"/>
+
+            <!-- Despesas -->
+            <VBox styleClass="card"
+                  HBox.hgrow="ALWAYS"
+                  maxWidth="Infinity">
+
+                <HBox fx:id="headerExpense"
+                      alignment="CENTER_LEFT"
+                      spacing="8">
+
+                    <Label text="Despesas do mês"
+                           styleClass="card-label"/>
+
+                </HBox>
+
+<!--                <Region VBox.vgrow="ALWAYS"/>-->
+
+                <Label fx:id="monthExpenseLabel"
+                       text="R$ 0,00"
+                       styleClass="card-value"/>
+
             </VBox>
-            <VBox styleClass="card metric-card" HBox.hgrow="ALWAYS">
-                <Label text="Economia do mês" styleClass="card-label"/>
-                <Label fx:id="monthSavingsLabel" text="R$ 0,00" styleClass="card-value"/>
+
+            <!-- Economia -->
+            <VBox styleClass="card"
+                  HBox.hgrow="ALWAYS"
+                  maxWidth="Infinity">
+
+                <HBox fx:id="headerSaving"
+                      alignment="CENTER_LEFT"
+                      spacing="8">
+
+                    <Label text="Economia do mês"
+                           styleClass="card-label"/>
+
+                </HBox>
+
+<!--                <Region VBox.vgrow="ALWAYS"/>-->
+
+                <Label fx:id="monthSavingsLabel"
+                       text="R$ 0,00"
+                       styleClass="card-value"/>
+
             </VBox>
+
         </HBox>
 
         <GridPane hgap="16.0" vgap="16.0">
@@ -71,11 +146,11 @@
             <Label text="Movimentações recentes" styleClass="section-title"/>
             <TableView fx:id="recentTable" prefHeight="260.0">
                 <columns>
-                    <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="260.0"/>
-                    <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="100.0"/>
-                    <TableColumn fx:id="amountColumn" text="Valor" prefWidth="120.0"/>
-                    <TableColumn fx:id="dateColumn" text="Data" prefWidth="110.0"/>
-                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="110.0"/>
+                    <TableColumn fx:id="descriptionColumn" text="Descrição"/>
+                    <TableColumn fx:id="typeColumn" text="Tipo"/>
+                    <TableColumn fx:id="statusColumn" text="Status"/>
+                    <TableColumn fx:id="dateColumn" text="Data"/>
+                    <TableColumn fx:id="amountColumn" text="Valor"/>
                 </columns>
             </TableView>
         </VBox>
