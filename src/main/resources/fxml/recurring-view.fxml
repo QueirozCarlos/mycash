@@ -34,13 +34,13 @@
             <VBox spacing="12.0" styleClass="card" HBox.hgrow="ALWAYS">
                 <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="460.0">
                     <columns>
-                        <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="160.0"/>
+                        <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="150.0"/>
+                        <TableColumn fx:id="categoryColumn" text="Categoria" prefWidth="110.0"/>
                         <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="90.0"/>
                         <TableColumn fx:id="amountColumn" text="Valor" prefWidth="100.0"/>
-                        <TableColumn fx:id="categoryColumn" text="Categoria" prefWidth="120.0"/>
                         <TableColumn fx:id="frequencyColumn" text="Frequência" prefWidth="110.0"/>
                         <TableColumn fx:id="nextColumn" text="Próxima" prefWidth="100.0"/>
-                        <TableColumn fx:id="activeColumn" text="Ativa" prefWidth="70.0"/>
+                        <TableColumn fx:id="activeColumn" text="Status" prefWidth="80.0"/>
                     </columns>
                 </TableView>
             </VBox>
