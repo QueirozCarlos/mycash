@@ -427,32 +427,76 @@
 }
 
 /* ===== DatePicker ===== */
+/* ================= DATE PICKER ================= */
+
 .date-picker {
-    -fx-background-color: #10141c;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
+.date-picker .text-field {
+    -fx-background-radius: 12 0 0 12;
 }
 
 .date-picker .arrow-button {
     -fx-background-color: #1c2330;
-    -fx-background-radius: 0 10 10 0;
+    -fx-background-radius: 0 12 12 0;
+    -fx-border-radius: 0 12 12 0;
+    -fx-padding: 0 12;
 }
 
 .date-picker .arrow-button .arrow {
-    -fx-background-color: #b7c0d6;
+    -fx-background-color: white;
 }
+
+/* Popup */
 
 .date-picker-popup {
     -fx-background-color: #171c26;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+
+    -fx-border-color: #2a3142;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup > * {
+    -fx-background-color: #171c26;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
 }
 
 .date-picker-popup .month-year-pane {
     -fx-background-color: #12161f;
+    -fx-background-radius: 12 12 0 0;
 }
 
-.date-picker-popup .calendar-grid {
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .spinner .button:hover {
+    -fx-background-color: #24314a;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: white;
+}
+
+.date-picker-popup .day-name-cell {
+    -fx-background-color: #12161f;
+    -fx-text-fill: #8b95ab;
+}
+
+.date-picker-popup .week-number-cell {
     -fx-background-color: #171c26;
+    -fx-text-fill: #8b95ab;
 }
 
 .date-picker-popup .day-cell {
+    -fx-background-color: #171c26;
+    -fx-border-color: #2a3142;
     -fx-text-fill: #e6e8ec;
 }
 
@@ -460,13 +504,19 @@
     -fx-background-color: #24314a;
 }
 
-.date-picker-popup .selected {
+.date-picker-popup .day-cell:selected {
     -fx-background-color: #2f5cff;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .today {
+    -fx-border-color: #2f5cff;
+    -fx-border-width: 1.5;
 }
 
 .date-picker-popup .previous-month,
 .date-picker-popup .next-month {
-    -fx-text-fill: #5a6478;
+    -fx-text-fill: #667085;
 }
 
 /* ===== ProgressBar ===== */

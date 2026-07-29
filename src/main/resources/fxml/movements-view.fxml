@@ -33,15 +33,14 @@
                     <DatePicker fx:id="endDatePicker" promptText="Fim"/>
                     <Button text="Filtrar" onAction="#onFilter"/>
                 </HBox>
-                <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="420.0">
+                <TableView fx:id="table" prefHeight="680.0">
                     <columns>
                         <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0"/>
                         <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="180.0"/>
                         <TableColumn fx:id="categoryColumn" text="Categoria" prefWidth="120.0"/>
-                        <TableColumn fx:id="amountColumn" text="Valor" prefWidth="110.0"/>
-                        <TableColumn fx:id="dateColumn" text="Data" prefWidth="100.0"/>
-                        <TableColumn fx:id="dueDateColumn" text="Vencimento" prefWidth="100.0"/>
                         <TableColumn fx:id="statusColumn" text="Status" prefWidth="100.0"/>
+                        <TableColumn fx:id="dateColumn" text="Data" prefWidth="100.0"/>
+                        <TableColumn fx:id="amountColumn" text="Valor" prefWidth="110.0"/>
                     </columns>
                 </TableView>
             </VBox>
