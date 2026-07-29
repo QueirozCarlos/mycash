@@ -62,9 +62,6 @@ public class MovementsController {
     private TableColumn<MovementEntity, LocalDate> dateColumn;
 
     @FXML
-    private TableColumn<MovementEntity, LocalDate> dueDateColumn;
-
-    @FXML
     private TableColumn<MovementEntity, MovementStatus> statusColumn;
 
     @FXML
@@ -106,17 +103,17 @@ public class MovementsController {
 
     @FXML
     private void initialize() {
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("movementDate"));
-        dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         amountColumn.setCellFactory(column -> currencyCell());
         dateColumn.setCellFactory(column -> dateCell());
-        dueDateColumn.setCellFactory(column -> dateCell());
 
         statusCombo.setItems(FXCollections.observableArrayList(MovementStatus.values()));
         categoryCombo.setConverter(new StringConverter<>() {
