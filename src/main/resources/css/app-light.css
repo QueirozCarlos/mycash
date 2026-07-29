@@ -335,3 +335,35 @@
     -fx-border-color: #1e3a8a;
     -fx-text-fill: #ffffff;
 }
+
+/* ===== ColorPicker (Light Theme Override) ===== */
+.color-picker {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+}
+
+.color-picker .color-picker-label .label {
+    -fx-text-fill: #0f172a;
+}
+
+.color-picker .arrow-button .arrow {
+    -fx-background-color: #475569;
+}
+
+.color-palette,
+.color-picker-grid {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+}
+
+.color-palette .hyperlink {
+    -fx-text-fill: #64748b;
+}
+
+.color-palette .hyperlink:hover {
+    -fx-text-fill: #1d4ed8;
+}
+
+.color-palette .separator *.line {
+    -fx-border-color: #e2e8f0;
+}

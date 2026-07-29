@@ -157,6 +157,47 @@
     -fx-border-color: #2f5cff;
 }
 
+/* ===== ColorPicker (Dark Theme) ===== */
+.color-picker {
+    -fx-background-color: #10141c;
+    -fx-border-color: #2a3142;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.color-picker .color-picker-label .label {
+    -fx-text-fill: #ffffff;
+}
+
+.color-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.color-picker .arrow-button .arrow {
+    -fx-background-color: #b7c0d6;
+}
+
+.color-palette,
+.color-picker-grid {
+    -fx-background-color: #171c26;
+    -fx-border-color: #2a3142;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.color-palette .hyperlink {
+    -fx-text-fill: #8b95ab;
+    -fx-underline: false;
+}
+
+.color-palette .hyperlink:hover {
+    -fx-text-fill: #2f5cff;
+}
+
+.color-palette .separator *.line {
+    -fx-border-color: #232939;
+}
+
 .text-area {
     -fx-control-inner-background: #10141c;
 }
@@ -314,6 +355,7 @@
     -fx-alignment: CENTER-LEFT;
     -fx-text-alignment: LEFT;
     -fx-max-width: Infinity;
+    -fx-padding: 0 0 0 10;
 }
 
 /* ===== ListView ===== */

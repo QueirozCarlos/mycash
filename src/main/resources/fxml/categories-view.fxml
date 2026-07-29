@@ -31,13 +31,18 @@
                                onAction="#onSearch"/>
                     <Button text="Pesquisar" onAction="#onSearch"/>
                 </HBox>
-                <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="420.0">
+                <TableView fx:id="table" prefHeight="700.0">
                     <columns>
-                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0"/>
-                        <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200.0"/>
-                        <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="140.0"/>
-                        <TableColumn fx:id="colorColumn" text="Cor" prefWidth="110.0"/>
-                        <TableColumn fx:id="activeColumn" text="Ativa" prefWidth="80.0"/>
+                        <!-- Colunas curtas ganham menos prefWidth -->
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0" />
+
+                        <!-- Colunas com texto ganham mais prefWidth -->
+                        <TableColumn fx:id="nameColumn" text="Nome" prefWidth="200.0" />
+                        <TableColumn fx:id="typeColumn" text="Tipo" prefWidth="200.0" />
+
+                        <!-- Colunas curtas ganham menos prefWidth -->
+                        <TableColumn fx:id="colorColumn" text="Cor" prefWidth="90.0" />
+                        <TableColumn fx:id="activeColumn" text="Ativa" prefWidth="90.0" />
                     </columns>
                 </TableView>
             </VBox>
