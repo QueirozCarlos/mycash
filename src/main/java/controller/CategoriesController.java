@@ -19,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import model.CategoryEntity;
 import model.CategoryType;
+import model.MovementEntity;
 import service.CategoryService;
 import util.ColorUtils;
 import util.UiDialogs;
@@ -68,13 +69,18 @@ public class CategoriesController {
     private final ObservableList<CategoryEntity> items = FXCollections.observableArrayList();
     private CategoryEntity selected;
 
+
     @FXML
     private void initialize() {
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         colorColumn.setCellValueFactory(new PropertyValueFactory<>("colorHex"));
         activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
+
+
         colorColumn.setCellFactory(column -> new TableCell<>() {
             private final Region swatch = new Region();
 
