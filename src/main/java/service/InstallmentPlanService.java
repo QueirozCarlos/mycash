@@ -25,19 +25,22 @@ public class InstallmentPlanService {
     private final MovementRepository movementRepository;
     private final MovementService movementService;
     private final UserService userService;
+    private final CreditCardService creditCardService;
 
     public InstallmentPlanService() {
-        this(new JpaInstallmentPlanRepository(), new JpaMovementRepository(), new MovementService(), new UserService());
+        this(new JpaInstallmentPlanRepository(), new JpaMovementRepository(), new MovementService(), new UserService(), new CreditCardService());
     }
 
     InstallmentPlanService(InstallmentPlanRepository installmentPlanRepository,
                            MovementRepository movementRepository,
                            MovementService movementService,
-                           UserService userService) {
+                           UserService userService,
+                           CreditCardService creditCardService) {
         this.installmentPlanRepository = installmentPlanRepository;
         this.movementRepository = movementRepository;
         this.movementService = movementService;
         this.userService = userService;
+        this.creditCardService = creditCardService;
     }
 
     public List<InstallmentPlanEntity> list() {
@@ -64,10 +67,23 @@ public class InstallmentPlanService {
             throw new IllegalArgumentException("Data de início não pode ser nula.");
         }
 
+        // --- VALIDAÇÃO DE LIMITE DO CARTÃO ---
+        if (creditCard != null && creditCard.getId() != null) {
+            var summary = creditCardService.summarize(creditCard.getId());
+            if (totalAmount.compareTo(summary.availableLimit()) > 0) {
+                throw new ApplicationException("Limite insuficiente no cartão de crédito! Limite disponível: R$ "
+                        + String.format("%.2f", summary.availableLimit()));
+            }
+        }
+
         userService.ensureDefaultUser();
 
         BigDecimal installmentAmount = totalAmount
-                .divide(BigDecimal.valueOf(installmentCount), 2, RoundingMode.HALF_UP);
+                .divide(BigDecimal.valueOf(installmentCount), 2, RoundingMode.DOWN);
+
+        BigDecimal distributed = installmentAmount.multiply(BigDecimal.valueOf(installmentCount));
+
+        BigDecimal difference = totalAmount.subtract(distributed);
 
         InstallmentPlanEntity plan = new InstallmentPlanEntity(
                 creditCard,
@@ -80,13 +96,21 @@ public class InstallmentPlanService {
         plan = installmentPlanRepository.save(plan);
 
         Long cardId = creditCard == null ? null : creditCard.getId();
+
         for (int number = 1; number <= installmentCount; number++) {
+
+            BigDecimal currentInstallmentAmount = installmentAmount;
+
+            if (number == installmentCount) {
+                currentInstallmentAmount = installmentAmount.add(difference);
+            }
+
             LocalDate installmentDate = startDate.plusMonths(number - 1L);
             String installmentDescription = description.trim() + " (" + number + "/" + installmentCount + ")";
             movementService.create(
                     MovementType.DESPESA,
                     installmentDescription,
-                    installmentAmount,
+                    currentInstallmentAmount,
                     installmentDate,
                     installmentDate,
                     category,

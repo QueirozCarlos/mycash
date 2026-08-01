@@ -116,6 +116,7 @@ public class JpaMovementRepository implements MovementRepository {
             }
             if (query != null && !query.isBlank()) {
                 jpql.append(" and lower(m.description) like lower(:query)");
+
                 params.put("query", "%" + query.trim() + "%");
             }
             if (startOrNull != null) {

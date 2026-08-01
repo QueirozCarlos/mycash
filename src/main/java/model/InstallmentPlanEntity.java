@@ -141,7 +141,18 @@ public class InstallmentPlanEntity {
     }
 
     public BigDecimal getRemainingAmount() {
-        return installmentAmount.multiply(BigDecimal.valueOf(getPendingInstallments()));
+        // 1. Se já pagou todas as parcelas, resta 0.00
+        if (getPendingInstallments() <= 0) {
+            return BigDecimal.ZERO;
+        }
+
+        // 2. Calcula o valor q foi pago
+        BigDecimal paidAmount = installmentAmount.multiply(BigDecimal.valueOf(paidInstallments));
+
+        // 3. O restante é o TOTAL menos o que foi PAGO
+        // Exemplo: 1000.00 - (333.33 * 0) = 1000.00 (Exatos!)
+        // Quando pagar 1x: 1000.00 - (333.33 * 1) = 666.67
+        return totalAmount.subtract(paidAmount);
     }
 
     public LocalDate getStartDate() {
@@ -163,4 +174,6 @@ public class InstallmentPlanEntity {
     public String getCreditCardName() {
         return creditCard == null ? "-" : creditCard.getName();
     }
+
+
 }

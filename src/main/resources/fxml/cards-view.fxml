@@ -65,8 +65,9 @@
                 <Label text="Parcelamentos" styleClass="section-title"/>
                 <TableView fx:id="plansTable" prefHeight="240.0">
                     <columns>
-                        <TableColumn fx:id="planDescriptionColumn" text="Descrição" prefWidth="160.0"/>
-                        <TableColumn fx:id="planCardColumn" text="Cartão" prefWidth="110.0"/>
+                        <TableColumn fx:id="planDescriptionColumn" text="Descrição" prefWidth="120.0"/>
+                        <TableColumn fx:id="planCardColumn" text="Cartão" prefWidth="100.0"/>
+                        <TableColumn fx:id="planInstallmentAmountColumn" text="Valor Parcela" prefWidth="100"/>
                         <TableColumn fx:id="planTotalColumn" text="Total" prefWidth="100.0"/>
                         <TableColumn fx:id="planPaidColumn" text="Pagas" prefWidth="70.0"/>
                         <TableColumn fx:id="planPendingColumn" text="Pendentes" prefWidth="90.0"/>
