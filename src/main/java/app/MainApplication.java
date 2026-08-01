@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ApplicationLifecycleService;
+import util.IconUtils;
 import util.ThemeManager;
 
 import java.io.IOException;
@@ -27,12 +28,15 @@ public class MainApplication extends Application {
         Scene scene = new Scene(loader.load(), 1360, 860);
         ThemeManager.bind(scene);
 
-        primaryStage.setTitle("Financeiro");
+        primaryStage.setTitle("My Cash");
         primaryStage.setMinWidth(1180);
         primaryStage.setMinHeight(760);
         primaryStage.setScene(scene);
         primaryStage.show();
         LOGGER.info("Interface iniciada. Tema: {}", ThemeManager.current());
+        primaryStage.getIcons().add(IconUtils.loadImage("app-icon.png"));
+
+        primaryStage.show();
     }
 
     @Override
