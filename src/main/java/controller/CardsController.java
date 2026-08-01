@@ -93,6 +93,9 @@ public class CardsController {
     private TableColumn<InstallmentPlanEntity, BigDecimal> planRemainingColumn;
 
     @FXML
+    private TableColumn<InstallmentPlanEntity, BigDecimal> planInstallmentAmountColumn;
+
+    @FXML
     private ComboBox<CreditCardEntity> planCardCombo;
 
     @FXML
@@ -122,6 +125,9 @@ public class CardsController {
 
     @FXML
     private void initialize() {
+
+        cardsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        plansTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         cardNameColumn.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().card().getName()));
         limitColumn.setCellValueFactory(cell ->
@@ -135,6 +141,7 @@ public class CardsController {
         dueDayColumn.setCellValueFactory(cell ->
                 new SimpleIntegerProperty(cell.getValue().card().getDueDay()));
 
+
         limitColumn.setCellFactory(column -> currencySummaryCell());
         usedColumn.setCellFactory(column -> currencySummaryCell());
         availableColumn.setCellFactory(column -> currencySummaryCell());
@@ -145,9 +152,13 @@ public class CardsController {
         planPaidColumn.setCellValueFactory(new PropertyValueFactory<>("paidInstallments"));
         planPendingColumn.setCellValueFactory(new PropertyValueFactory<>("pendingInstallments"));
         planRemainingColumn.setCellValueFactory(new PropertyValueFactory<>("remainingAmount"));
+        planInstallmentAmountColumn.setCellValueFactory(new PropertyValueFactory<>("installmentAmount"));
+
 
         planTotalColumn.setCellFactory(column -> currencyPlanCell());
+        planInstallmentAmountColumn.setCellFactory(column -> currencyPlanCell());
         planRemainingColumn.setCellFactory(column -> currencyPlanCell());
+
 
         planCardCombo.setConverter(cardConverter());
         planCategoryCombo.setConverter(categoryConverter());

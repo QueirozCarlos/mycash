@@ -61,9 +61,17 @@ public class CreditCardService {
     }
 
     public CreditCardSummaryDto summarize(CreditCardEntity card) {
-        BigDecimal used = movementRepository.sumByCreditCardId(card.getId());
+        // Agora o 'used' soma APENAS movimentações PENDENTES!
+        BigDecimal used = movementRepository.sumPendingByCreditCardId(card.getId());
+        if (used == null) {
+            used = BigDecimal.ZERO;
+        }
+
         BigDecimal available = card.getCreditLimit().subtract(used);
-        BigDecimal invoiceEstimate = movementRepository.sumPendingByCreditCardId(card.getId());
+
+        // A estimativa da fatura/pendências utiliza o mesmo valor das pendências
+        BigDecimal invoiceEstimate = used;
+
         return new CreditCardSummaryDto(card, used, available, invoiceEstimate);
     }
 
