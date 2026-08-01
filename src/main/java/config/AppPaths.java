@@ -4,10 +4,29 @@ import java.nio.file.Path;
 
 public final class AppPaths {
 
-    public static final Path APPLICATION_DIR = Path.of(System.getProperty("user.home"), ".financeiro");
-    public static final Path DATABASE_FILE = APPLICATION_DIR.resolve("financeiro.db");
-    public static final Path BACKUP_DIR = APPLICATION_DIR.resolve("backups");
+    public static final Path APPLICATION_DIR;
 
-    private AppPaths() {
+    static {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("win")) {
+            APPLICATION_DIR = Path.of(
+                    System.getenv("LOCALAPPDATA"),
+                    "Financeiro"
+            );
+        } else {
+            APPLICATION_DIR = Path.of(
+                    System.getProperty("user.home"),
+                    ".financeiro"
+            );
+        }
     }
+
+    public static final Path DATABASE_FILE =
+            APPLICATION_DIR.resolve("financeiro.db");
+
+    public static final Path BACKUP_DIR =
+            APPLICATION_DIR.resolve("backups");
+
+    private AppPaths() {}
 }
