@@ -125,6 +125,9 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>app.MainApplication</mainClass>
+                    <options>
+                        <option>--enable-native-access=javafx.graphics,org.xerial.sqlitejdbc</option>
+                    </options>
                 </configuration>
             </plugin>
             <plugin>
@@ -134,6 +137,173 @@
                 <configuration>
                     <useModulePath>false</useModulePath>
                 </configuration>
+            </plugin>
+
+            <!-- 1. Empacota todas as dependências em um Fat-JAR único -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>app.Launcher</mainClass>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 2. NOVO: Cria a pasta app-dir e copia o JAR para lá ANTES do jpackage -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/app-dir"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                      tofile="${project.build.directory}/app-dir/${project.build.finalName}.jar"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 3. Executa o jpackage usando a pasta isolada e limpa -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>gerar-deb-jpackage</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>jpackage</executable>
+                            <arguments>
+                                <argument>--name</argument>
+                                <argument>My Cash</argument>
+
+                                <argument>--app-version</argument>
+                                <argument>0.1.0</argument>
+
+                                <argument>--vendor</argument>
+                                <argument>Carlos Queiroz</argument>
+
+                                <argument>--input</argument>
+                                <argument>${project.build.directory}/app-dir</argument>
+
+                                <argument>--main-jar</argument>
+                                <argument>${project.build.finalName}.jar</argument>
+
+                                <argument>--main-class</argument>
+                                <argument>app.Launcher</argument>
+
+                                <argument>--type</argument>
+                                <argument>deb</argument>
+
+                                <argument>--icon</argument>
+                                <argument>src/main/resources/icons/app-icon.png</argument>
+
+                                <argument>--linux-shortcut</argument>
+
+                                <argument>--linux-menu-group</argument>
+                                <argument>Office</argument>
+
+                                <argument>--java-options</argument>
+                                <argument>--enable-native-access=ALL-UNNAMED</argument>
+
+                                <argument>--dest</argument>
+                                <argument>${project.build.directory}/dist</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>gerar-deb-jpackage</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>jpackage</executable>
+                            <arguments>
+                                <argument>--name</argument>
+                                <argument>My Cash</argument>
+
+                                <argument>--app-version</argument>
+                                <argument>0.1.0</argument>
+
+                                <argument>--vendor</argument>
+                                <argument>Carlos Queiroz</argument>
+
+                                <!-- PASSA A PASTA COM O SEU MODELO DE .DESKTOP CUSTOMIZADO -->
+                                <argument>--resource-dir</argument>
+                                <argument>src/main/jpackage/resources</argument>
+
+                                <argument>--input</argument>
+                                <argument>${project.build.directory}/app-dir</argument>
+
+                                <argument>--main-jar</argument>
+                                <argument>${project.build.finalName}.jar</argument>
+
+                                <argument>--main-class</argument>
+                                <argument>app.Launcher</argument>
+
+                                <argument>--type</argument>
+                                <argument>deb</argument>
+
+                                <argument>--icon</argument>
+                                <argument>src/main/resources/icons/app-icon.png</argument>
+
+                                <argument>--linux-shortcut</argument>
+
+                                <argument>--linux-menu-group</argument>
+                                <argument>Office</argument>
+
+                                <argument>--java-options</argument>
+                                <argument>--enable-native-access=ALL-UNNAMED</argument>
+
+                                <argument>--dest</argument>
+                                <argument>${project.build.directory}/dist</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

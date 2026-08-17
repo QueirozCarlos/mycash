@@ -15,9 +15,12 @@
         <class>model.LocalDateTimeAttributeConverter</class>
         <class>model.LocalDateAttributeConverter</class>
         <properties>
-            <property name="hibernate.show_sql" value="false"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <!-- Desativa a busca automática de metadados desnecessários -->
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+            <!-- Evita que o Hibernate tente validar esquemas via JDBC na subida (o Flyway já faz isso) -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <!-- Acelera o boot ignorando scan de anotações globais -->
+            <property name="hibernate.archive.autodetection" value="class"/>
         </properties>
     </persistence-unit>
 </persistence>

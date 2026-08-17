@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=My Cash
+Comment=My Cash
+Exec="/opt/my-cash/bin/My Cash"
+Icon=/opt/my-cash/lib/My_Cash.png
+Terminal=false
+Type=Application
+Categories=Office
+StartupWMClass=app.MainApplication

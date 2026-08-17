@@ -4,10 +4,12 @@ import javafx.scene.Scene;
 import service.ConfigurationService;
 
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public final class ThemeManager {
 
     public static final String THEME_KEY = "ui.theme";
+    private static final Preferences PREFS = Preferences.userNodeForPackage(ThemeManager.class);
 
     public enum Theme {
         DARK,
@@ -16,14 +18,23 @@ public final class ThemeManager {
 
     private static Scene scene;
     private static Theme current = Theme.DARK;
-    private static final ConfigurationService CONFIGURATION_SERVICE = new ConfigurationService();
+    private static ConfigurationService configurationService;
 
     private ThemeManager() {
     }
 
+    /**
+     * Retorna o tema salvo via Preferences do Java (sem tocar no banco).
+     * Ideal para o Splash Screen!
+     */
+    public static Theme getSavedThemeFast() {
+        String savedTheme = PREFS.get(THEME_KEY, "dark");
+        return "light".equalsIgnoreCase(savedTheme) ? Theme.LIGHT : Theme.DARK;
+    }
+
     public static void bind(Scene applicationScene) {
         scene = Objects.requireNonNull(applicationScene, "scene");
-        apply(loadPersistedTheme());
+        apply(getSavedThemeFast());
     }
 
     public static Theme current() {
@@ -36,7 +47,21 @@ public final class ThemeManager {
 
     public static void setTheme(Theme theme) {
         Theme selected = theme == null ? Theme.DARK : theme;
-        CONFIGURATION_SERVICE.set(THEME_KEY, selected.name().toLowerCase());
+        current = selected;
+
+        // 1. Salva no Preferences (Rápido/Sem banco)
+        PREFS.put(THEME_KEY, selected.name().toLowerCase());
+
+        // 2. Salva no Banco de Dados se o serviço estiver pronto
+        try {
+            if (configurationService == null) {
+                configurationService = new ConfigurationService();
+            }
+            configurationService.set(THEME_KEY, selected.name().toLowerCase());
+        } catch (Exception e) {
+            // Ignora se o banco ainda não subiu
+        }
+
         apply(selected);
     }
 
@@ -44,13 +69,7 @@ public final class ThemeManager {
         setTheme(isDark() ? Theme.LIGHT : Theme.DARK);
     }
 
-    private static Theme loadPersistedTheme() {
-        return CONFIGURATION_SERVICE.get(THEME_KEY)
-                .map(value -> "light".equalsIgnoreCase(value) ? Theme.LIGHT : Theme.DARK)
-                .orElse(Theme.DARK);
-    }
-
-    private static void apply(Theme theme) {
+    public static void apply(Theme theme) {
         current = theme;
         if (scene == null) {
             return;
@@ -61,6 +80,7 @@ public final class ThemeManager {
 
         scene.getStylesheets().removeIf(sheet ->
                 sheet.endsWith("/css/app.css") || sheet.endsWith("/css/app-light.css"));
+
         scene.getStylesheets().add(darkCss);
         if (theme == Theme.LIGHT) {
             scene.getStylesheets().add(lightCss);

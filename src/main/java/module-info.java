@@ -12,6 +12,7 @@ module financeiro {
     requires org.slf4j;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires java.prefs;
 
     opens controller to javafx.fxml;
     opens model to org.hibernate.orm.core, javafx.base;
